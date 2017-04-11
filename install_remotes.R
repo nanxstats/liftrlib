@@ -6,6 +6,11 @@ stopifnot(require('devtools'))
 
 install_remotes = function(pkg) {
 
+  pkg = c('svn::https://github.com/hadley/stringr',
+          'klutometis/roxygen',
+          'github::hadley/ggplot2',
+          'bitbucket::sdnjndsk/sdnkjnsd')
+
   pkg_prefix = sapply(strsplit(pkg, '::'), '[', 1)
 
   pkg_github    = union(which(!grepl('::', pkg)), which(pkg_prefix == 'github'))
@@ -17,24 +22,31 @@ install_remotes = function(pkg) {
   pkg_local     = which(pkg_prefix == 'local')
 
   if (length(pkg_github) != 0L)
-    devtools::install_github(pkg[pkg_github])
+    devtools::install_github(
+      gsub('^github::', '', pkg[pkg_github]))
 
   if (length(pkg_git) != 0L)
-    devtools::install_git(pkg[pkg_git])
+    devtools::install_git(
+      sapply(strsplit(pkg[pkg_git], '::'), '[', 2))
 
   if (length(pkg_bitbucket) != 0L)
-    devtools::install_bitbucket(pkg[pkg_bitbucket])
+    devtools::install_bitbucket(
+      sapply(strsplit(pkg[pkg_bitbucket], '::'), '[', 2))
 
   if (length(pkg_bioc) != 0L)
-    devtools::install_bioc(pkg[pkg_bioc])
+    devtools::install_bioc(
+      sapply(strsplit(pkg[pkg_bioc], '::'), '[', 2))
 
   if (length(pkg_svn) != 0L)
-    devtools::install_svn(pkg[pkg_svn])
+    devtools::install_svn(
+      sapply(strsplit(pkg[pkg_svn], '::'), '[', 2))
 
   if (length(pkg_url) != 0L)
-    devtools::install_url(pkg[pkg_url])
+    devtools::install_url(
+      sapply(strsplit(pkg[pkg_url], '::'), '[', 2))
 
   if (length(pkg_local) != 0L)
-    devtools::install_local(pkg[pkg_local])
+    devtools::install_local(
+      sapply(strsplit(pkg[pkg_local], '::'), '[', 2))
 
 }
