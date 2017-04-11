@@ -37,5 +37,4 @@ install_remotes = function(pkg) {
   if (length(pkg_local) != 0L)
     devtools::install_local(pkg[pkg_local])
 
-
 }
