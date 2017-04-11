@@ -6,11 +6,6 @@ stopifnot(require('devtools'))
 
 install_remotes = function(pkg) {
 
-  pkg = c('svn::https://github.com/hadley/stringr',
-          'klutometis/roxygen',
-          'github::hadley/ggplot2',
-          'bitbucket::sdnjndsk/sdnkjnsd')
-
   pkg_prefix = sapply(strsplit(pkg, '::'), '[', 1)
 
   pkg_github    = union(which(!grepl('::', pkg)), which(pkg_prefix == 'github'))
